@@ -18,28 +18,32 @@ To use the Transformer model, follow these steps:
 
 4. **Inference:** Use the trained model for inference tasks.
 
-### Example
+## Modules
+**SelfAttention**
+This module implements self-attention mechanism
 
-```python
-import torch
-from transformer import Transformer
+**TransformerBlock**
+Represents a single transformer block consisting of multi-head self-attention and feed-forward neural network
 
-# Define device
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+**Encoder**
+The Encoder module processes the input sequence and generates context vectors
 
-# Sample input
-x = torch.tensor([[1, 5, 6, 4, 3, 9, 5, 2, 0], [1, 8, 7, 3, 4, 5, 6, 7, 2]]).to(device)
-trg = torch.tensor([[1, 7, 4, 3, 5, 9, 2, 0], [1, 5, 6, 2, 4, 7, 6, 2]]).to(device)
+**DecoderBlock**
+A single block of the decoder part of the Transformer model, consisting of self-attention, encoder-decoder attention and feed-forward layers.
 
-# Model parameters
-src_pad_idx = 0
-trg_pad_idx = 0
-src_vocab_size = 10
-trg_vocab_size = 10
+**Decoder**
+The Decoder module generatesv the output sequence based on the context vectors from the encoder.
 
-# Instantiate the model
-model = Transformer(src_vocab_size, trg_vocab_size, src_pad_idx, trg_pad_idx, device=device).to(device)
+**Transformer**
+The main Transformer model that encapsulates the encoder and decoder.
 
-# Forward pass
-out = model(x, trg[:, :-1])
-print(out.shape)
+## Requirements
+
+1. Pytorch
+2. TorchText(for data preprocessing)
+
+## Acknowledgements
+
+This implementation is inspired by the Transformer architecture proposed in the paper "Attention is All You Need" by Vaswani et al.
+
+I'm thankful to Aladdin Persson and his tutorial - https://www.youtube.com/watch?v=U0s0f995w14 ,helped me on this learning journey.
